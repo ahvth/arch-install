@@ -7,5 +7,5 @@ mount /dev/sda2 /mnt
 reflector --country Hungary --protocol https --sort rate --save /etc/pacman.d/mirrorlist
 pacstrap /mnt base base-devel linux linux-firmware
 genfstab -U /mnt >> /mnt/etc/fstab
-cp arch-install-2.sh /mnt/chroot.sh
+cp chroot.sh /mnt/chroot.sh
 arch-chroot /mnt /chroot.sh
