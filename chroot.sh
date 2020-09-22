@@ -2,7 +2,8 @@
 
 ln -sf /usr/share/zoneinfo/Europe/Budapest /etc/localtime
 hwclock --systohc
-sed 's/#en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/g' /etc/locale.gen > /etc/locale.gen
+sed -i 's/#en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/g' /etc/locale.gen
+locale-gen
 echo "KEYMAP=us" > /etc/vconsole.conf
 echo arch-install > /etc/hostname
 passwd
@@ -10,8 +11,8 @@ useradd -g wheel dev
 passwd dev
 mkdir /home/dev
 chown -R dev /home/dev
-sed 's/# %wheel ALL=(ALL) ALL/%wheel ALL=(ALL) ALL/g' /etc/sudoers > /etc/sudoers
-pacman --noconfirm -S dialog xorg xorg-xinit xorg-xauth xterm
+sed -i 's/# %wheel ALL=(ALL) ALL/%wheel ALL=(ALL) ALL/g' /etc/sudoers
+pacman --noconfirm -S dialog xorg xorg-xinit xorg-xauth xterm grub
 yes | pacman -S efibootmgr
 mkdir /efi
 mount /dev/sda1 /efi

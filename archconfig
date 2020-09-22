@@ -1,0 +1,37 @@
+# arch-install configuration file
+
+# define partition layout preset (possible values are single, home, btrfs)
+partition-layout=single
+
+#override preset values (defaults provided in each entry below)
+efi-size=500M
+root-size=50G # only valid in home preset
+
+# use reflector to sort mirrors by speed?
+sort-mirrors=true
+mirror-country=Hungary
+
+# use lts kernel?
+use-lts=false
+
+# set timezone (see for a list of timezones)
+time-zone=Europe/Budapest
+
+# set locale (see for a list of locales)
+locale=en_US.UTF-8 UTF-8
+
+# set keymap (see for a list of locales)
+keymap=us
+
+# set a hostname
+hostname=arch
+
+# create one or more users (separate users with commas, comment out line to skip user creation)
+admin-users=dev
+# guest-users=guest
+
+# install a graphical user environment (possible values are gnome,kde,xfce)
+desktop=gnome
+
+# use packagefile, set packagefile path (installs packages listed in packagefile, always the newest version - put packagefile in repo root beside install.sh by default or specify path)
+packagefile=packagefile
