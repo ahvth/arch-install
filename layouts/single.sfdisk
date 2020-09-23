@@ -1,0 +1,6 @@
+label: gpt
+device: /dev/$DEVICE
+unit: sectors
+
+/dev/"$DEVICE"1: start=2048, size=409600, type=1
+/dev/"$DEVICE"2: start=409600, type=83
