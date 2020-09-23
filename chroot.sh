@@ -12,10 +12,11 @@ done < archconfig
 
 ln -sf /usr/share/zoneinfo/"$TZ" /etc/localtime
 hwclock --systohc
-export REGEX="'"
-export REGEX+="s/#$LOCALE/$LOCALE/g"
-export REGEX+="'"
-sed -i $REGEX /etc/locale.gen
+# export REGEX="'"
+# export REGEX+="s/#$LOCALE/$LOCALE/g"
+# export REGEX+="'"
+# sed -i $REGEX /etc/locale.gen
+sed -i 's/#en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/g' /etc/locale.gen
 locale-gen
 echo "KEYMAP=$KEYMAP" > /etc/vconsole.conf
 echo $HOSTNAME > /etc/hostname
