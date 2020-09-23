@@ -20,11 +20,11 @@ sed -i 's/#en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/g' /etc/locale.gen
 locale-gen
 echo "KEYMAP=$KEYMAP" > /etc/vconsole.conf
 echo $HOSTNAME > /etc/hostname
-passwd
+echo "start123" | passwd
 
 # TODO: add machine / service user creation
 useradd -g wheel $ADMINUSER
-passwd $ADMINUSER
+echo "start123" | passwd $ADMINUSER
 mkdir /home/$ADMINUSER
 chown -R dev /home/$ADMINUSER
 sed -i 's/# %wheel ALL=(ALL) ALL/%wheel ALL=(ALL) ALL/g' /etc/sudoers
