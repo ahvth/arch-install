@@ -14,7 +14,7 @@ timedatectl set-ntp true
 
 # case for partition layout
 # single partition config
-export ENDSECTOR=`sgdisk -E $DEVICE`
+export ENDSECTOR="$(sgdisk -E $DEVICE)"
 sgdisk -n 1:2048:400MB $DEVICE
 sgdisk -n 2:401MB:$ENDSECTOR $DEVICE
 mkfs.fat -F 32 "$DEVICE"1
