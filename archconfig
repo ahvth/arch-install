@@ -29,7 +29,7 @@ KEYMAP=us
 HOSTNAME=arch
 
 # create one or more users (separate users with commas, comment out line to skip user creation)
-ADMINUSERS=dev
+ADMINUSER=dev
 # GUESTUSERS=guest
 
 # install a graphical user environment (possible values are gnome,kde,xfce)

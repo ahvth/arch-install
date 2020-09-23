@@ -14,7 +14,9 @@ timedatectl set-ntp true
 
 # case for partition layout
 # single partition config
-# TODO: parted commands here
+export ENDSECTOR=`sgdisk -E $DEVICE`
+sgdisk -n 1:2048:400MB /dev/$DEVICE
+sgdisk -n 2:401MB:$ENDSECTOR /dev/$DEVICE
 mkfs.fat -F 32 /dev/"$DEVICE"1
 mkfs.ext4 /dev/"$DEVICE"2
 mount /dev/sda2 /mnt

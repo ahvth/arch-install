@@ -21,11 +21,11 @@ echo "KEYMAP=$KEYMAP" > /etc/vconsole.conf
 echo $HOSTNAME > /etc/hostname
 passwd
 
-# note that ADMINUSERS will eventually be handled as a space-delimited list
-useradd -g wheel $ADMINUSERS
-passwd $ADMINUSERS
-mkdir /home/$ADMINUSERS
-chown -R dev /home/$ADMINUSERS
+# TODO: add machine / service user creation
+useradd -g wheel $ADMINUSER
+passwd $ADMINUSER
+mkdir /home/$ADMINUSER
+chown -R dev /home/$ADMINUSER
 sed -i 's/# %wheel ALL=(ALL) ALL/%wheel ALL=(ALL) ALL/g' /etc/sudoers
 pacman --noconfirm -S dialog xorg xorg-xinit xorg-xauth xterm grub
 yes | pacman -S efibootmgr
