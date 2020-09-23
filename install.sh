@@ -29,7 +29,8 @@ mount "$DEVICE"2 /mnt
 
 # sort mirrors by speed in country
 if [ $SORTMIRRORS == "true" ]; then
- reflector --country "$MIRRORCOUNTRY" --protocol https --sort rate --save /etc/pacman.d/mirrorlist
+ reflector --country $MIRRORCOUNTRY --protocol https --sort rate --save /etc/pacman.d/mirrorlist
+ echo "Mirror set to $MIRRORCOUNTRY"
 fi
 
 # case for lts vs mainline kernel
