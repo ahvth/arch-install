@@ -14,12 +14,13 @@ timedatectl set-ntp true
 
 # case for partition layout
 # single partition config
-export ENDSECTOR=`sgdisk -E $DEVICE`
-sgdisk -n 1:2048:400MB /dev/$DEVICE
-sgdisk -n 2:401MB:$ENDSECTOR /dev/$DEVICE
-mkfs.fat -F 32 /dev/"$DEVICE"1
-mkfs.ext4 /dev/"$DEVICE"2
-mount /dev/sda2 /mnt
+sgdisk -og $DEVICE
+export ENDSECTOR="$(sgdisk -E $DEVICE)"
+sgdisk -n 1:2048:400MB $DEVICE
+sgdisk -n 2:401MB:$ENDSECTOR $DEVICE
+mkfs.fat -F 32 "$DEVICE"1
+mkfs.ext4 "$DEVICE"2
+mount "$DEVICE"2 /mnt
 
 # home partition config (home folder in a separate partition)
 
@@ -28,7 +29,8 @@ mount /dev/sda2 /mnt
 
 # sort mirrors by speed in country
 if [ $SORTMIRRORS == "true" ]; then
- reflector --country "$MIRRORCOUNTRY" --protocol https --sort rate --save /etc/pacman.d/mirrorlist
+ reflector --country $MIRRORCOUNTRY --protocol https --sort rate --save /etc/pacman.d/mirrorlist
+ echo "Mirror set to $MIRRORCOUNTRY"
 fi
 
 # case for lts vs mainline kernel

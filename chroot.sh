@@ -12,25 +12,26 @@ done < archconfig
 
 ln -sf /usr/share/zoneinfo/"$TZ" /etc/localtime
 hwclock --systohc
-export REGEX="'"
-export REGEX+="s/#$LOCALE/$LOCALE/g"
-export REGEX+="'"
-sed -i $REGEX /etc/locale.gen
+# export REGEX="'"
+# export REGEX+="s/#$LOCALE/$LOCALE/g"
+# export REGEX+="'"
+# sed -i $REGEX /etc/locale.gen
+sed -i 's/#en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/g' /etc/locale.gen
 locale-gen
 echo "KEYMAP=$KEYMAP" > /etc/vconsole.conf
 echo $HOSTNAME > /etc/hostname
-passwd
+echo "start123" | passwd --stdin
 
 # TODO: add machine / service user creation
 useradd -g wheel $ADMINUSER
-passwd $ADMINUSER
+echo "start123" | passwd $ADMINUSER --stdin
 mkdir /home/$ADMINUSER
 chown -R dev /home/$ADMINUSER
 sed -i 's/# %wheel ALL=(ALL) ALL/%wheel ALL=(ALL) ALL/g' /etc/sudoers
 pacman --noconfirm -S dialog xorg xorg-xinit xorg-xauth xterm grub
 yes | pacman -S efibootmgr
 mkdir /efi
-mount /dev/"$DEVICE"1 /efi
+mount "$DEVICE"1 /efi
 grub-install --target=x86_64-efi --efi-directory=efi --bootloader-id=ARCH
 grub-mkconfig -o /boot/grub/grub.cfg
 
@@ -40,5 +41,9 @@ systemctl enable gdm
 systemctl enable NetworkManager.service
 
 # install packagefile contents (TODO: skip software already installed earlier in installation)
-pacman -S `cat packagefile | sed -z 's/\n/ /g'`
+if [ packagefile -e ]; then
+pacman -S `cat packagefile | sed -z 's/\n/ /g'` >> /dev/null
+else
+echo "No packagefile present. Finishing installation"
+fi
 exit
