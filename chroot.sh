@@ -42,6 +42,8 @@ systemctl enable NetworkManager.service
 
 # install packagefile contents (TODO: skip software already installed earlier in installation)
 if [ packagefile -e ]; then
-pacman -S `cat packagefile | sed -z 's/\n/ /g'`
+pacman -S `cat packagefile | sed -z 's/\n/ /g'` >> /dev/null
+else
+echo "No packagefile present. Finishing installation"
 fi
 exit
