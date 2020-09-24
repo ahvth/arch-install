@@ -1,5 +1,8 @@
 # arch-install configuration file
 
+# in automated environment? default password will be start123
+CI=true
+
 DEVICE=/dev/sda
 
 # define partition layout preset (possible values are single, home, btrfs)

@@ -20,11 +20,16 @@ sed -i 's/#en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/g' /etc/locale.gen
 locale-gen
 echo "KEYMAP=$KEYMAP" > /etc/vconsole.conf
 echo $HOSTNAME > /etc/hostname
-passwd
-
+if [ $CI == 'true' ]; then
+ (echo 'start123'; echo 'start123') | passwd
+fi
 # TODO: add machine / service user creation
 useradd -g wheel $ADMINUSER
-passwd $ADMINUSER
+if [ $CI == 'true' ]; then
+ (echo 'start123'; echo 'start123') | passwd $ADMINUSER
+else
+ passwd $ADMINUSER
+fi
 mkdir /home/$ADMINUSER
 chown -R dev /home/$ADMINUSER
 sed -i 's/# %wheel ALL=(ALL) ALL/%wheel ALL=(ALL) ALL/g' /etc/sudoers
@@ -41,7 +46,7 @@ systemctl enable gdm
 systemctl enable NetworkManager.service
 
 # install packagefile contents (TODO: skip software already installed earlier in installation)
-if [ packagefile -e ]; then
+if [ $PACKAGEFILE -e ]; then
 pacman -S `cat packagefile | sed -z 's/\n/ /g'` >> /dev/null
 else
 echo "No packagefile present. Finishing installation"
