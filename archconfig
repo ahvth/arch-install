@@ -26,7 +26,7 @@ TZ=Europe/Budapest
 LOCALE=en_US.UTF-8 UTF-8
 
 # set a language (see for a list of languages)
-LANGUAGE=eu_US.UTF-8
+LANGUAGE=en_US.UTF-8
 
 # set keymap (see for a list of locales)
 KEYMAP=us
