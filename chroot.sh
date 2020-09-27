@@ -42,7 +42,7 @@ sed -i 's/# %wheel ALL=(ALL) ALL/%wheel ALL=(ALL) ALL/g' /etc/sudoers
 pacman --noconfirm -S dialog xorg xorg-xinit xorg-xauth xterm grub
 yes | pacman -S efibootmgr
 mkdir /efi
-mount "$DEVICE"1 /efi
+mount "$DEVICE"p1 /efi
 grub-install --target=x86_64-efi --efi-directory=efi --bootloader-id=ARCH
 grub-mkconfig -o /boot/grub/grub.cfg
 
