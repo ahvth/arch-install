@@ -1,5 +1,8 @@
 # arch-install configuration file
 
+# in automated environment? default password will be start123
+CI=false
+
 DEVICE=/dev/sda
 
 # define partition layout preset (possible values are single, home, btrfs)
@@ -21,6 +24,9 @@ TZ=Europe/Budapest
 
 # set locale (see for a list of locales)
 LOCALE=en_US.UTF-8 UTF-8
+
+# set a language (see for a list of languages)
+LANGUAGE=eu_US.UTF-8
 
 # set keymap (see for a list of locales)
 KEYMAP=us

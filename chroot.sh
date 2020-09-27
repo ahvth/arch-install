@@ -16,15 +16,24 @@ hwclock --systohc
 # export REGEX+="s/#$LOCALE/$LOCALE/g"
 # export REGEX+="'"
 # sed -i $REGEX /etc/locale.gen
-sed -i 's/#en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/g' /etc/locale.gen
+# sed -i 's/#en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/g' /etc/locale.gen
+# TODO: uncomment solution for user-friendly experience
+echo $LOCALE >> /etc/locale.gen
 locale-gen
+#TODO: are further settings actually useful in modern DEs?
+echo "LANG=$LANGUAGE" > /etc/locale.conf
 echo "KEYMAP=$KEYMAP" > /etc/vconsole.conf
 echo $HOSTNAME > /etc/hostname
-echo "start123" | passwd --stdin
-
+if [ $CI == 'true' ]; then
+ (echo 'start123'; echo 'start123') | passwd
+fi
 # TODO: add machine / service user creation
 useradd -g wheel $ADMINUSER
-echo "start123" | passwd $ADMINUSER --stdin
+if [ $CI == 'true' ]; then
+ (echo 'start123'; echo 'start123') | passwd $ADMINUSER
+else
+ passwd $ADMINUSER
+fi
 mkdir /home/$ADMINUSER
 chown -R dev /home/$ADMINUSER
 sed -i 's/# %wheel ALL=(ALL) ALL/%wheel ALL=(ALL) ALL/g' /etc/sudoers
@@ -41,7 +50,7 @@ systemctl enable gdm
 systemctl enable NetworkManager.service
 
 # install packagefile contents (TODO: skip software already installed earlier in installation)
-if [ packagefile -e ]; then
+if [ $PACKAGEFILE -e ]; then
 pacman -S `cat packagefile | sed -z 's/\n/ /g'` >> /dev/null
 else
 echo "No packagefile present. Finishing installation"

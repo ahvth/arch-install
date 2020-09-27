@@ -10,6 +10,12 @@ while read line; do
   fi
 done < archconfig
 
+if [ $CI == true ]; then
+ echo "Running in CI mode."
+else
+ echo "Running in interactive mode."
+fi
+
 timedatectl set-ntp true
 
 # case for partition layout
