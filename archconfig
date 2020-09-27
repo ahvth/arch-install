@@ -23,7 +23,7 @@ USELTS=false
 TZ=Europe/Budapest
 
 # set locale (see for a list of locales)
-LOCALE=en_US.UTF-8
+LOCALE=en_US.UTF-8 UTF-8
 
 # set a language (see for a list of languages)
 LANGUAGE=en_US.UTF-8

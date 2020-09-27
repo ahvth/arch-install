@@ -48,6 +48,7 @@ grub-mkconfig -o /boot/grub/grub.cfg
 pacman --noconfirm -S gnome
 systemctl enable gdm
 systemctl enable NetworkManager.service
+gsettings set org.gnome.system.locale region "en_US.UTF-8"
 
 # install packagefile contents (TODO: skip software already installed earlier in installation)
 if [ $PACKAGEFILE -e ]; then
