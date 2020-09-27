@@ -20,13 +20,15 @@ timedatectl set-ntp true
 
 # case for partition layout
 # single partition config
-sgdisk -og $DEVICE
-export ENDSECTOR="$(sgdisk -E $DEVICE)"
-sgdisk -n 1:2048:400MB $DEVICE
-sgdisk -n 2:401MB:$ENDSECTOR $DEVICE
-mkfs.fat -F 32 "$DEVICE"1
-mkfs.ext4 "$DEVICE"2
-mount "$DEVICE"2 /mnt
+#sgdisk -og $DEVICE
+#export ENDSECTOR="$(sgdisk -E $DEVICE)"
+#sgdisk -n 1:2048:400MB $DEVICE
+#sgdisk -n 2:401MB:$ENDSECTOR $DEVICE
+mkfs.fat -F 32 "$DEVICE"p1
+mkfs.ext4 "$DEVICE"p2
+mount "$DEVICE"p2 /mnt
+
+
 
 # home partition config (home folder in a separate partition)
 
