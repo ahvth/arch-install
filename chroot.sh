@@ -26,6 +26,8 @@ echo "KEYMAP=$KEYMAP" > /etc/vconsole.conf
 echo $HOSTNAME > /etc/hostname
 if [ $CI == 'true' ]; then
  (echo 'start123'; echo 'start123') | passwd
+else
+ passwd
 fi
 # TODO: add machine / service user creation
 useradd -g wheel $ADMINUSER
